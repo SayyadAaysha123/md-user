@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:masjiduserapp/privacy_policy.dart';
+import 'package:masjiduserapp/size_config.dart';
+import 'package:masjiduserapp/terms_and_condition.dart';
 
 
-import 'Joined_masjit_three_tabs_bar.dart';
+import 'all_masjit_list.dart';
 import 'common.color.dart';
 import 'masjit_name_masjit_jioned_user.dart';
 

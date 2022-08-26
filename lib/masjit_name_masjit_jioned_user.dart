@@ -26,8 +26,10 @@ class _MasjitNameLocationJoinedState extends State<MasjitNameLocationJoined>
 
 
   bool showDetails = true;
+  bool ViewImage = false;
+  bool JammatTime = false;
 
-  get gradient => null;
+
 
   bool mapScreen = false;
   bool trusteeScreen = false;
@@ -49,6 +51,7 @@ class _MasjitNameLocationJoinedState extends State<MasjitNameLocationJoined>
     if (mounted)
       setState(() {
         showDetails = true;
+        //   ViewImage = false;
       });
   //  _tabController = new TabController(vsync: this, length: tabs.length);
   }
@@ -64,7 +67,7 @@ class _MasjitNameLocationJoinedState extends State<MasjitNameLocationJoined>
     SizeConfig().init(context);
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
         body:/* Column(
           children: [
             Container(
@@ -119,12 +122,13 @@ shrinkWrap: true,
               height: SizeConfig.screenHeight * 0.09,
 
 
+
               child:
               CityContant(SizeConfig.screenHeight, SizeConfig.screenWidth),
             ),   Container(
               height: SizeConfig.screenHeight*0.7,
               child:Container(
-                padding:EdgeInsets.only(top: SizeConfig.screenHeight*.03),
+                padding:EdgeInsets.only(top: SizeConfig.screenHeight*.02),
                           height: SizeConfig.screenHeight,
                           child: showScreenLayout(
                               SizeConfig.screenHeight, SizeConfig.screenWidth),
@@ -213,7 +217,7 @@ shrinkWrap: true,
               }
             },
             child: Container(
-              width: parentWidth * 0.3,
+              width: parentWidth * 0.28,
               height: parentHeight * 0.05,
               decoration: BoxDecoration(
                   color: mapScreen == true
@@ -246,7 +250,7 @@ shrinkWrap: true,
                 });
             },
             child: Container(
-              width: parentWidth * 0.3,
+              width: parentWidth * 0.28,
               height: parentHeight * 0.05,
               decoration: BoxDecoration(
                   color: trusteeScreen
@@ -279,7 +283,7 @@ shrinkWrap: true,
                 });
             },
             child: Container(
-              width: parentWidth * 0.3,
+              width: parentWidth * 0.28,
               height: parentHeight * 0.05,
               decoration: BoxDecoration(
                   color: noticeScreen
@@ -337,63 +341,110 @@ shrinkWrap: true,
                   child: Text(
                     "Location :",
                     style: TextStyle(
-                        fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+                        fontSize: SizeConfig.blockSizeHorizontal * 4.0,
                         color: CommonColor.BLACK_COLOR,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                         height: 1.6,
-                        fontFamily: 'Roboto_Regular'),
+                        fontFamily: 'Roboto_Bold'),
                   ),
                 ),
-                Container(
-                  //height: SizeConfig.screenHeight*.74,
-                    width: SizeConfig.screenWidth,
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                          bottom: SizeConfig.screenHeight * .0,
-                          top: SizeConfig.screenHeight * .0),
-                      child: CarouselSlider.builder(
-                        // carouselController: _controller,
-                          itemCount: listPaths.length,
-                          //widget.getChatGroupInfoData.length,
-                          options: CarouselOptions(
-                            onPageChanged: (index, reason) {
-                              setState(() {
-                                currentIndex = index;
-                              });
-                            },
-                            initialPage: 1,
-                            height: SizeConfig.screenHeight * .27,
-                            // aspectRatio: 1.1,
-                            viewportFraction: 1.0,
-                            enableInfiniteScroll: false,
-                            autoPlay: false,
-                            enlargeStrategy:
-                            CenterPageEnlargeStrategy.height,
+                Padding(
+                  padding: EdgeInsets.only(left: parentHeight * 0.02),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Masjid Name",
+                        style: TextStyle(
+                            fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                            color: CommonColor.BLACK_COLOR,
+                            fontWeight: FontWeight.w400,
+                            height: 1.6,
+                            fontFamily: 'Roboto_bold'),
+                      ),
+                      GestureDetector(
+                        onTapDown: (tab){
+                          setState(() {
+                           ViewImage = !ViewImage;
+                          });
+                        },
+
+
+                        child: Container(
+                         height: parentHeight*0.02,
+                          color: Colors.transparent,
+                          child: Padding(
+                            padding:  EdgeInsets.only(right: parentWidth*0.05),
+                            child: Text(
+                              "View",
+                              style: TextStyle(
+                                  fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                                  color: CommonColor.BLACK_COLOR,
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: 'Roboto_bold'),
+                            ),
                           ),
-                          itemBuilder: (BuildContext context,
-                              int itemIndex, int index) {
-                            return getFirstImageFrame(
-                                SizeConfig.screenHeight,
-                                SizeConfig.screenWidth);
-                          }),
-                    )),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    for (int i = 0; i < listPaths.length; i++)
-                      Container(
-                        width: 7,
-                        height: 7,
-                        margin: EdgeInsets.all(2),
-                        decoration: BoxDecoration(
-                          color: currentIndex == i
-                              ? Colors.green
-                              : Colors.grey.shade400,
-                          shape: BoxShape.circle,
                         ),
-                      )
-                  ],
+                      ),
+                    ],
+                  ),
+                ),
+                Visibility(
+                    visible: ViewImage,
+                  child: Container(
+                    //height: SizeConfig.screenHeight*.74,
+                      width: SizeConfig.screenWidth,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            right: SizeConfig.screenHeight * .0,
+                            top: SizeConfig.screenHeight * .0),
+                        child: CarouselSlider.builder(
+                          // carouselController: _controller,
+                            itemCount: listPaths.length,
+                            //widget.getChatGroupInfoData.length,
+                            options: CarouselOptions(
+                              onPageChanged: (index, reason) {
+                                setState(() {
+                                  currentIndex = index;
+                                });
+                              },
+                              initialPage: 1,
+                              height: SizeConfig.screenHeight * .27,
+                              // aspectRatio: 1.1,
+                              viewportFraction: 1.0,
+                              enableInfiniteScroll: false,
+                              autoPlay: false,
+                              enlargeStrategy:
+                              CenterPageEnlargeStrategy.height,
+                            ),
+                            itemBuilder: (BuildContext context,
+                                int itemIndex, int index) {
+                              return getFirstImageFrame(
+                                  SizeConfig.screenHeight,
+                                  SizeConfig.screenWidth);
+                            }),
+                      )),
+                ),
+                Visibility(
+                  visible: ViewImage,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      for (int i = 0; i < listPaths.length; i++)
+                        Container(
+                          width: 7,
+                          height: 7,
+                          margin: EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                            color: currentIndex == i
+                                ? Colors.green
+                                : Colors.grey.shade400,
+                            shape: BoxShape.circle,
+                          ),
+                        )
+                    ],
+                  ),
                 ),
                 Column(
                   children: [
@@ -422,7 +473,7 @@ shrinkWrap: true,
 
   Widget getFirstImageFrame(double parentHeight, double parentWidth) {
     return Padding(
-      padding: EdgeInsets.only(left: parentWidth * 0.03),
+      padding: EdgeInsets.only(left: parentWidth * 0.03,right: parentWidth*0.03),
       child: Container(
         width: parentWidth,
         child: Column(
@@ -455,7 +506,349 @@ shrinkWrap: true,
   }
 
   Widget getAddFazarLayout(double parentHeight, double parentWidth) {
-    return Padding(
+    return
+      Padding(
+        padding: EdgeInsets.only(
+            top: parentHeight * 0.01,
+            left: parentWidth * 0.0,
+            right: parentWidth * 0.0),
+        child: Column(
+          children: [
+     Container(
+
+                  height: parentHeight * 0.05,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [
+                          CommonColor.LEFT_COLOR,
+                          CommonColor.RIGHT_COLOR
+                        ]),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding:  EdgeInsets.only(left:parentWidth*0.33),
+                        child: Text(
+                          "Jammat Time",
+                          style: TextStyle(
+                              fontFamily: "Roboto_Regular",
+                              fontWeight: FontWeight.w700,
+                              fontSize: SizeConfig.blockSizeHorizontal * 4.5,
+                              color: CommonColor.WHITE_COLOR),
+
+                        ),
+                      ),
+
+                        GestureDetector(
+                          onTapDown: (tab){
+                            setState(() {
+                              JammatTime = !JammatTime;
+                            });
+                          },
+                          child: Padding(
+                            padding:  EdgeInsets.only(right: parentWidth*0.05),
+                            child: Container(
+
+                              // width: SizeConfig.screenWidth * .09,
+                              child: Image.asset(
+                                'assets/images/up_arrow.png',
+
+                              ),
+                            ),
+                          ),
+                        ),
+
+                    ],
+                  )),
+            Visibility(
+                visible: JammatTime,
+              child: Padding(
+                padding: EdgeInsets.only(top: parentHeight * 0.0),
+                child: Container(
+                  height: parentHeight * 0.23,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(20), bottomLeft: Radius.circular(20)),
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(
+                        color: Colors.grey.shade300,
+                        spreadRadius: 1,
+                        blurRadius: 5,
+                        offset: Offset(0, 5),
+                      ),
+                      BoxShadow(
+                        color: Colors.grey.shade50,
+                        offset: Offset(-5, 0),
+                      ),
+                      BoxShadow(
+                        color: Colors.grey.shade50,
+                        offset: Offset(5, 0),
+                      )
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+
+                      Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(top: parentHeight * 0.03),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(left: parentWidth * 0.18),
+                                  child: Text("FAJR",
+                                      style: TextStyle(
+                                        fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+                                        fontFamily: 'Roboto_Bold',
+                                        fontWeight: FontWeight.w500,
+                                        color: CommonColor.BLACK_COLOR,
+                                      )),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: parentWidth * 0.0),
+                                  child: Text("ZUHAR",
+                                      style: TextStyle(
+                                        fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+                                        fontFamily: 'Roboto_Bold',
+                                        fontWeight: FontWeight.w500,
+                                        color: CommonColor.BLACK_COLOR,
+                                      )),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: parentWidth * 0.0),
+                                  child: Text("FAJR",
+                                      style: TextStyle(
+                                        fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+                                        fontFamily: 'Roboto_Bold',
+                                        fontWeight: FontWeight.w500,
+                                        color: CommonColor.BLACK_COLOR,
+                                      )),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: parentWidth * 0.0),
+                                  child: Text("FAJR",
+                                      style: TextStyle(
+                                        fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+                                        fontFamily: 'Roboto_Bold',
+                                        fontWeight: FontWeight.w500,
+                                        color: CommonColor.BLACK_COLOR,
+                                      )),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: parentWidth * 0.0),
+                                  child: Text("FAJR",
+                                      style: TextStyle(
+                                        fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+                                        fontFamily: 'Roboto_Bold',
+                                        fontWeight: FontWeight.w500,
+                                        color: CommonColor.BLACK_COLOR,
+                                      )),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(right: parentWidth * 0.08),
+                                  child: Text("FAJR",
+                                      style: TextStyle(
+                                        fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+                                        fontFamily: 'Roboto_Bold',
+                                        fontWeight: FontWeight.w500,
+                                        color: CommonColor.BLACK_COLOR,
+                                      )),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: parentWidth * 0.03, top: parentHeight * 0.02),
+                                child: Text("AZAN",
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.blockSizeHorizontal * 4.3,
+                                      fontFamily: 'Roboto_Bold',
+                                      fontWeight: FontWeight.w600,
+                                      color: CommonColor.BLACK_COLOR,
+                                    )),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: parentWidth * 0.0, top: parentHeight * 0.02),
+                                child: Text("05:00",
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.blockSizeHorizontal * 3.3,
+                                      fontFamily: 'Roboto_Regular',
+                                      fontWeight: FontWeight.w400,
+                                      color: CommonColor.BLACK_COLOR,
+                                    )),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: parentWidth * 0.0, top: parentHeight * 0.02),
+                                child: Text("01:00",
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.blockSizeHorizontal * 3.3,
+                                      fontFamily: 'Roboto_Regular',
+                                      fontWeight: FontWeight.w400,
+                                      color: CommonColor.BLACK_COLOR,
+                                    )),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: parentWidth * 0.0, top: parentHeight * 0.02),
+                                child: Text("05:00",
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.blockSizeHorizontal * 3.3,
+                                      fontFamily: 'Roboto_Regular',
+                                      fontWeight: FontWeight.w400,
+                                      color: CommonColor.BLACK_COLOR,
+                                    )),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: parentWidth * 0.0, top: parentHeight * 0.02),
+                                child: Text("06:30",
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.blockSizeHorizontal * 3.3,
+                                      fontFamily: 'Roboto_Regular',
+                                      fontWeight: FontWeight.w400,
+                                      color: CommonColor.BLACK_COLOR,
+                                    )),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: parentWidth * 0.0, top: parentHeight * 0.02),
+                                child: Text("08:30",
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.blockSizeHorizontal * 3.3,
+                                      fontFamily: 'Roboto_Regular',
+                                      fontWeight: FontWeight.w400,
+                                      color: CommonColor.BLACK_COLOR,
+                                    )),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    right: parentWidth * 0.07, top: parentHeight * 0.02),
+                                child: Text("01:30",
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.blockSizeHorizontal * 3.3,
+                                      fontFamily: 'Roboto_Regular',
+                                      fontWeight: FontWeight.w400,
+                                      color: CommonColor.BLACK_COLOR,
+                                    )),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: parentWidth * 0.03, top: parentHeight * 0.02),
+                                child: Text("JAMAA’T",
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.blockSizeHorizontal * 4.3,
+                                      fontFamily: 'Roboto_Bold',
+                                      fontWeight: FontWeight.w600,
+                                      color: CommonColor.BLACK_COLOR,
+                                    )),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: parentWidth * 0.0, top: parentHeight * 0.02),
+                                child: Text("05:30",
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.blockSizeHorizontal * 3.3,
+                                      fontFamily: 'Roboto_Regular',
+                                      fontWeight: FontWeight.w400,
+                                      color: CommonColor.BLACK_COLOR,
+                                    )),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: parentWidth * 0.0, top: parentHeight * 0.02),
+                                child: Text("01:30",
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.blockSizeHorizontal * 3.3,
+                                      fontFamily: 'Roboto_Regular',
+                                      fontWeight: FontWeight.w400,
+                                      color: CommonColor.BLACK_COLOR,
+                                    )),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: parentWidth * 0.0, top: parentHeight * 0.02),
+                                child: Text("05:30",
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.blockSizeHorizontal * 3.3,
+                                      fontFamily: 'Roboto_Regular',
+                                      fontWeight: FontWeight.w400,
+                                      color: CommonColor.BLACK_COLOR,
+                                    )),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: parentWidth * 0.0, top: parentHeight * 0.02),
+                                child: Text("06:35",
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.blockSizeHorizontal * 3.3,
+                                      fontFamily: 'Roboto_Regular',
+                                      fontWeight: FontWeight.w400,
+                                      color: CommonColor.BLACK_COLOR,
+                                    )),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: parentWidth * 0.0, top: parentHeight * 0.02),
+                                child: Text("08:85",
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.blockSizeHorizontal * 3.3,
+                                      fontFamily: 'Roboto_Regular',
+                                      fontWeight: FontWeight.w400,
+                                      color: CommonColor.BLACK_COLOR,
+                                    )),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    right: parentWidth * 0.07, top: parentHeight * 0.02),
+                                child: Text("01:45",
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.blockSizeHorizontal * 3.3,
+                                      fontFamily: 'Roboto_Regular',
+                                      fontWeight: FontWeight.w400,
+                                      color: CommonColor.BLACK_COLOR,
+                                    )),
+                              ),
+                            ],
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+
+
+
+          ],
+        ),
+
+      );
+
+    /* Padding(
       padding: EdgeInsets.only(top: parentHeight * 0.03),
       child: Container(
         height: parentHeight * 0.23,
@@ -753,11 +1146,353 @@ shrinkWrap: true,
           ],
         ),
       ),
-    );
+    );*/
   }
 
   Widget getAddshariIftarLayout(double parentHeight, double parentWidth) {
-    return Padding(
+    return
+
+      Padding(
+        padding: EdgeInsets.only(
+            top: parentHeight * 0.01,
+            left: parentWidth * 0.0,
+            right: parentWidth * 0.0),
+        child: Column(
+          children: [
+            Container(
+
+                height: parentHeight * 0.05,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      colors: [
+                        CommonColor.LEFT_COLOR,
+                        CommonColor.RIGHT_COLOR
+                      ]),
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding:  EdgeInsets.only(left:parentWidth*0.33),
+                      child: Text(
+                        "SAHR / IFTAR",
+                        style: TextStyle(
+                            fontFamily: "Roboto_Regular",
+                            fontWeight: FontWeight.w700,
+                            fontSize: SizeConfig.blockSizeHorizontal * 4.5,
+                            color: CommonColor.WHITE_COLOR),
+
+                      ),
+                    ),
+
+                    GestureDetector(
+                      onTapDown: (tab){
+                        setState(() {
+                          JammatTime = !JammatTime;
+                        });
+                      },
+                      child: Padding(
+                        padding:  EdgeInsets.only(right: parentWidth*0.05),
+                        child: Container(
+
+                          // width: SizeConfig.screenWidth * .09,
+                          child: Image.asset(
+                            'assets/images/up_arrow.png',
+
+                          ),
+                        ),
+                      ),
+                    ),
+
+                  ],
+                )),
+            Visibility(
+              visible: JammatTime,
+              child: Padding(
+                padding: EdgeInsets.only(top: parentHeight * 0.0),
+                child: Container(
+                  height: parentHeight * 0.23,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(20), bottomLeft: Radius.circular(20)),
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(
+                        color: Colors.grey.shade300,
+                        spreadRadius: 1,
+                        blurRadius: 5,
+                        offset: Offset(0, 5),
+                      ),
+                      BoxShadow(
+                        color: Colors.grey.shade50,
+                        offset: Offset(-5, 0),
+                      ),
+                      BoxShadow(
+                        color: Colors.grey.shade50,
+                        offset: Offset(5, 0),
+                      )
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+
+                      Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(top: parentHeight * 0.03),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(left: parentWidth * 0.18),
+                                  child: Text("FAJR",
+                                      style: TextStyle(
+                                        fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+                                        fontFamily: 'Roboto_Bold',
+                                        fontWeight: FontWeight.w500,
+                                        color: CommonColor.BLACK_COLOR,
+                                      )),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: parentWidth * 0.0),
+                                  child: Text("ZUHAR",
+                                      style: TextStyle(
+                                        fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+                                        fontFamily: 'Roboto_Bold',
+                                        fontWeight: FontWeight.w500,
+                                        color: CommonColor.BLACK_COLOR,
+                                      )),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: parentWidth * 0.0),
+                                  child: Text("FAJR",
+                                      style: TextStyle(
+                                        fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+                                        fontFamily: 'Roboto_Bold',
+                                        fontWeight: FontWeight.w500,
+                                        color: CommonColor.BLACK_COLOR,
+                                      )),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: parentWidth * 0.0),
+                                  child: Text("FAJR",
+                                      style: TextStyle(
+                                        fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+                                        fontFamily: 'Roboto_Bold',
+                                        fontWeight: FontWeight.w500,
+                                        color: CommonColor.BLACK_COLOR,
+                                      )),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: parentWidth * 0.0),
+                                  child: Text("FAJR",
+                                      style: TextStyle(
+                                        fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+                                        fontFamily: 'Roboto_Bold',
+                                        fontWeight: FontWeight.w500,
+                                        color: CommonColor.BLACK_COLOR,
+                                      )),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(right: parentWidth * 0.08),
+                                  child: Text("FAJR",
+                                      style: TextStyle(
+                                        fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+                                        fontFamily: 'Roboto_Bold',
+                                        fontWeight: FontWeight.w500,
+                                        color: CommonColor.BLACK_COLOR,
+                                      )),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: parentWidth * 0.03, top: parentHeight * 0.02),
+                                child: Text("AZAN",
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.blockSizeHorizontal * 4.3,
+                                      fontFamily: 'Roboto_Bold',
+                                      fontWeight: FontWeight.w600,
+                                      color: CommonColor.BLACK_COLOR,
+                                    )),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: parentWidth * 0.0, top: parentHeight * 0.02),
+                                child: Text("05:00",
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.blockSizeHorizontal * 3.3,
+                                      fontFamily: 'Roboto_Regular',
+                                      fontWeight: FontWeight.w400,
+                                      color: CommonColor.BLACK_COLOR,
+                                    )),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: parentWidth * 0.0, top: parentHeight * 0.02),
+                                child: Text("01:00",
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.blockSizeHorizontal * 3.3,
+                                      fontFamily: 'Roboto_Regular',
+                                      fontWeight: FontWeight.w400,
+                                      color: CommonColor.BLACK_COLOR,
+                                    )),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: parentWidth * 0.0, top: parentHeight * 0.02),
+                                child: Text("05:00",
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.blockSizeHorizontal * 3.3,
+                                      fontFamily: 'Roboto_Regular',
+                                      fontWeight: FontWeight.w400,
+                                      color: CommonColor.BLACK_COLOR,
+                                    )),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: parentWidth * 0.0, top: parentHeight * 0.02),
+                                child: Text("06:30",
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.blockSizeHorizontal * 3.3,
+                                      fontFamily: 'Roboto_Regular',
+                                      fontWeight: FontWeight.w400,
+                                      color: CommonColor.BLACK_COLOR,
+                                    )),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: parentWidth * 0.0, top: parentHeight * 0.02),
+                                child: Text("08:30",
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.blockSizeHorizontal * 3.3,
+                                      fontFamily: 'Roboto_Regular',
+                                      fontWeight: FontWeight.w400,
+                                      color: CommonColor.BLACK_COLOR,
+                                    )),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    right: parentWidth * 0.07, top: parentHeight * 0.02),
+                                child: Text("01:30",
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.blockSizeHorizontal * 3.3,
+                                      fontFamily: 'Roboto_Regular',
+                                      fontWeight: FontWeight.w400,
+                                      color: CommonColor.BLACK_COLOR,
+                                    )),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: parentWidth * 0.03, top: parentHeight * 0.02),
+                                child: Text("JAMAA’T",
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.blockSizeHorizontal * 4.3,
+                                      fontFamily: 'Roboto_Bold',
+                                      fontWeight: FontWeight.w600,
+                                      color: CommonColor.BLACK_COLOR,
+                                    )),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: parentWidth * 0.0, top: parentHeight * 0.02),
+                                child: Text("05:30",
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.blockSizeHorizontal * 3.3,
+                                      fontFamily: 'Roboto_Regular',
+                                      fontWeight: FontWeight.w400,
+                                      color: CommonColor.BLACK_COLOR,
+                                    )),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: parentWidth * 0.0, top: parentHeight * 0.02),
+                                child: Text("01:30",
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.blockSizeHorizontal * 3.3,
+                                      fontFamily: 'Roboto_Regular',
+                                      fontWeight: FontWeight.w400,
+                                      color: CommonColor.BLACK_COLOR,
+                                    )),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: parentWidth * 0.0, top: parentHeight * 0.02),
+                                child: Text("05:30",
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.blockSizeHorizontal * 3.3,
+                                      fontFamily: 'Roboto_Regular',
+                                      fontWeight: FontWeight.w400,
+                                      color: CommonColor.BLACK_COLOR,
+                                    )),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: parentWidth * 0.0, top: parentHeight * 0.02),
+                                child: Text("06:35",
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.blockSizeHorizontal * 3.3,
+                                      fontFamily: 'Roboto_Regular',
+                                      fontWeight: FontWeight.w400,
+                                      color: CommonColor.BLACK_COLOR,
+                                    )),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: parentWidth * 0.0, top: parentHeight * 0.02),
+                                child: Text("08:85",
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.blockSizeHorizontal * 3.3,
+                                      fontFamily: 'Roboto_Regular',
+                                      fontWeight: FontWeight.w400,
+                                      color: CommonColor.BLACK_COLOR,
+                                    )),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    right: parentWidth * 0.07, top: parentHeight * 0.02),
+                                child: Text("01:45",
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.blockSizeHorizontal * 3.3,
+                                      fontFamily: 'Roboto_Regular',
+                                      fontWeight: FontWeight.w400,
+                                      color: CommonColor.BLACK_COLOR,
+                                    )),
+                              ),
+                            ],
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+
+
+
+          ],
+        ),
+
+      );
+    /*  Padding(
       padding: EdgeInsets.only(top: parentHeight * 0.03),
       child: Container(
         height: parentHeight * 0.16,
@@ -873,7 +1608,7 @@ shrinkWrap: true,
           ],
         ),
       ),
-    );
+    );*/
   }
 
   Widget getAddEidLayout(double parentHeight, double parentWidth) {

@@ -310,16 +310,18 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
                           Padding(
                             padding: EdgeInsets.only(right: parentWidth * 0.0),
                             child: TextButton(
-                              onPressed: () => formKey.currentState!.validate(),
-                              child: Text(
-                                "Show",
+                              child: Text(   "Show",
+
                                 style: TextStyle(
                                     fontFamily: "Roboto_Regular",
                                     fontWeight: FontWeight.w400,
                                     fontSize:
                                         SizeConfig.blockSizeHorizontal * 4.0,
                                     color: CommonColor.SHOW_BUTTON),
-                              ),
+                              ),                                onPressed: () {
+
+                            },
+
                             ),
                           ),
                         ],
